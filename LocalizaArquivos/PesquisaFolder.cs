@@ -197,11 +197,11 @@ namespace LocalizaArquivos
                     }
                     objExcel.Workbooks.Add();
                     objExcel.ActiveWorkbook.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1) : NomeArquivo) + ".xlsx");
-                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0,30));
+                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0,NomeArquivo.Length));
                     objExcel.Visible = true;
 
                     int LinhasCabecalhos = 0, coluna = 0;
-                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, 30))].Activate();
+                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, NomeArquivo.Length))].Activate();
                     objExcel.ActiveSheet.Cells.Font.Name = "Arial";
                     objExcel.ActiveSheet.Cells.Font.Size = 9;
                     LinhasCabecalhos = 1;
