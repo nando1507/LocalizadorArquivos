@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisaFolder));
             this.dgvArquivos = new System.Windows.Forms.DataGridView();
             this.DgvCaminho = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,9 +47,19 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.progresso = new System.Windows.Forms.ToolStripProgressBar();
+            this.gbTamanho = new System.Windows.Forms.GroupBox();
+            this.rbMB = new System.Windows.Forms.RadioButton();
+            this.rbKB = new System.Windows.Forms.RadioButton();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.btnExpExcel = new System.Windows.Forms.Button();
+            this.btnExpCSV = new System.Windows.Forms.Button();
+            this.btnExpTXT = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvArquivos)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.gbTamanho.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvArquivos
@@ -68,7 +79,7 @@
             this.dgvArquivos.Location = new System.Drawing.Point(8, 109);
             this.dgvArquivos.Name = "dgvArquivos";
             this.dgvArquivos.ReadOnly = true;
-            this.dgvArquivos.Size = new System.Drawing.Size(776, 353);
+            this.dgvArquivos.Size = new System.Drawing.Size(914, 371);
             this.dgvArquivos.TabIndex = 0;
             // 
             // DgvCaminho
@@ -108,7 +119,7 @@
             this.sairToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(938, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -174,9 +185,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel,
             this.progresso});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 483);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(938, 22);
             this.statusStrip1.TabIndex = 7;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -191,11 +202,87 @@
             this.progresso.Name = "progresso";
             this.progresso.Size = new System.Drawing.Size(100, 16);
             // 
+            // gbTamanho
+            // 
+            this.gbTamanho.Controls.Add(this.rbKB);
+            this.gbTamanho.Controls.Add(this.rbMB);
+            this.gbTamanho.Location = new System.Drawing.Point(817, 27);
+            this.gbTamanho.Name = "gbTamanho";
+            this.gbTamanho.Size = new System.Drawing.Size(105, 44);
+            this.gbTamanho.TabIndex = 8;
+            this.gbTamanho.TabStop = false;
+            this.gbTamanho.Text = "Unidade";
+            // 
+            // rbMB
+            // 
+            this.rbMB.AutoSize = true;
+            this.rbMB.Checked = true;
+            this.rbMB.Location = new System.Drawing.Point(51, 19);
+            this.rbMB.Name = "rbMB";
+            this.rbMB.Size = new System.Drawing.Size(41, 17);
+            this.rbMB.TabIndex = 0;
+            this.rbMB.TabStop = true;
+            this.rbMB.Text = "MB";
+            this.rbMB.UseVisualStyleBackColor = true;
+            // 
+            // rbKB
+            // 
+            this.rbKB.AutoSize = true;
+            this.rbKB.Location = new System.Drawing.Point(6, 19);
+            this.rbKB.Name = "rbKB";
+            this.rbKB.Size = new System.Drawing.Size(39, 17);
+            this.rbKB.TabIndex = 1;
+            this.rbKB.Text = "KB";
+            this.rbKB.UseVisualStyleBackColor = true;
+            // 
+            // directorySearcher1
+            // 
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
+            // btnExpExcel
+            // 
+            this.btnExpExcel.Image = global::LocalizaArquivos.Properties.Resources.icons8_microsoft_excel_161;
+            this.btnExpExcel.Location = new System.Drawing.Point(8, 80);
+            this.btnExpExcel.Name = "btnExpExcel";
+            this.btnExpExcel.Size = new System.Drawing.Size(29, 23);
+            this.btnExpExcel.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.btnExpExcel, "Exportar Excel");
+            this.btnExpExcel.UseVisualStyleBackColor = true;
+            this.btnExpExcel.Click += new System.EventHandler(this.btnExpExcel_Click);
+            // 
+            // btnExpCSV
+            // 
+            this.btnExpCSV.Image = global::LocalizaArquivos.Properties.Resources.icons8_csv_16;
+            this.btnExpCSV.Location = new System.Drawing.Point(45, 80);
+            this.btnExpCSV.Name = "btnExpCSV";
+            this.btnExpCSV.Size = new System.Drawing.Size(26, 23);
+            this.btnExpCSV.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.btnExpCSV, "Exportar CSV");
+            this.btnExpCSV.UseVisualStyleBackColor = true;
+            this.btnExpCSV.Click += new System.EventHandler(this.btnExpCSV_Click);
+            // 
+            // btnExpTXT
+            // 
+            this.btnExpTXT.Image = global::LocalizaArquivos.Properties.Resources.icons8_txt_16;
+            this.btnExpTXT.Location = new System.Drawing.Point(79, 80);
+            this.btnExpTXT.Name = "btnExpTXT";
+            this.btnExpTXT.Size = new System.Drawing.Size(22, 23);
+            this.btnExpTXT.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.btnExpTXT, "Exportar TXT");
+            this.btnExpTXT.UseVisualStyleBackColor = true;
+            this.btnExpTXT.Click += new System.EventHandler(this.btnExpTXT_Click);
+            // 
             // PesquisaFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 522);
+            this.ClientSize = new System.Drawing.Size(938, 505);
+            this.Controls.Add(this.btnExpTXT);
+            this.Controls.Add(this.btnExpCSV);
+            this.Controls.Add(this.btnExpExcel);
+            this.Controls.Add(this.gbTamanho);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.txtArquivo);
             this.Controls.Add(this.lblArquivo);
@@ -214,6 +301,8 @@
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.gbTamanho.ResumeLayout(false);
+            this.gbTamanho.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,6 +327,15 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
         private System.Windows.Forms.ToolStripProgressBar progresso;
+        private System.Windows.Forms.GroupBox gbTamanho;
+        private System.Windows.Forms.RadioButton rbKB;
+        private System.Windows.Forms.RadioButton rbMB;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Button btnExpExcel;
+        private System.Windows.Forms.Button btnExpCSV;
+        private System.Windows.Forms.Button btnExpTXT;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
