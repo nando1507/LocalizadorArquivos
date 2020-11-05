@@ -46,16 +46,16 @@
             this.lblArquivo = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.progresso = new System.Windows.Forms.ToolStripProgressBar();
             this.gbTamanho = new System.Windows.Forms.GroupBox();
-            this.rbMB = new System.Windows.Forms.RadioButton();
             this.rbKB = new System.Windows.Forms.RadioButton();
+            this.rbMB = new System.Windows.Forms.RadioButton();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.btnExpExcel = new System.Windows.Forms.Button();
             this.btnExpCSV = new System.Windows.Forms.Button();
             this.btnExpTXT = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtContador = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArquivos)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -184,7 +184,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel,
-            this.progresso});
+            this.txtContador});
             this.statusStrip1.Location = new System.Drawing.Point(0, 483);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(938, 22);
@@ -197,11 +197,6 @@
             this.StatusLabel.Size = new System.Drawing.Size(124, 17);
             this.StatusLabel.Text = "Arquivos Localizados: ";
             // 
-            // progresso
-            // 
-            this.progresso.Name = "progresso";
-            this.progresso.Size = new System.Drawing.Size(100, 16);
-            // 
             // gbTamanho
             // 
             this.gbTamanho.Controls.Add(this.rbKB);
@@ -212,6 +207,16 @@
             this.gbTamanho.TabIndex = 8;
             this.gbTamanho.TabStop = false;
             this.gbTamanho.Text = "Unidade";
+            // 
+            // rbKB
+            // 
+            this.rbKB.AutoSize = true;
+            this.rbKB.Location = new System.Drawing.Point(6, 19);
+            this.rbKB.Name = "rbKB";
+            this.rbKB.Size = new System.Drawing.Size(39, 17);
+            this.rbKB.TabIndex = 1;
+            this.rbKB.Text = "KB";
+            this.rbKB.UseVisualStyleBackColor = true;
             // 
             // rbMB
             // 
@@ -224,16 +229,6 @@
             this.rbMB.TabStop = true;
             this.rbMB.Text = "MB";
             this.rbMB.UseVisualStyleBackColor = true;
-            // 
-            // rbKB
-            // 
-            this.rbKB.AutoSize = true;
-            this.rbKB.Location = new System.Drawing.Point(6, 19);
-            this.rbKB.Name = "rbKB";
-            this.rbKB.Size = new System.Drawing.Size(39, 17);
-            this.rbKB.TabIndex = 1;
-            this.rbKB.Text = "KB";
-            this.rbKB.UseVisualStyleBackColor = true;
             // 
             // directorySearcher1
             // 
@@ -273,6 +268,13 @@
             this.toolTip1.SetToolTip(this.btnExpTXT, "Exportar TXT");
             this.btnExpTXT.UseVisualStyleBackColor = true;
             this.btnExpTXT.Click += new System.EventHandler(this.btnExpTXT_Click);
+            // 
+            // txtContador
+            // 
+            this.txtContador.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.txtContador.Name = "txtContador";
+            this.txtContador.Size = new System.Drawing.Size(13, 17);
+            this.txtContador.Text = "0";
             // 
             // PesquisaFolder
             // 
@@ -326,7 +328,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DgvSize;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.ToolStripProgressBar progresso;
         private System.Windows.Forms.GroupBox gbTamanho;
         private System.Windows.Forms.RadioButton rbKB;
         private System.Windows.Forms.RadioButton rbMB;
@@ -336,6 +337,7 @@
         private System.Windows.Forms.Button btnExpCSV;
         private System.Windows.Forms.Button btnExpTXT;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ToolStripStatusLabel txtContador;
     }
 }
 

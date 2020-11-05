@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
@@ -24,7 +17,6 @@ namespace LocalizaArquivos
         OpenFileDialog Pesquisa = new OpenFileDialog();
         FolderBrowserDialog folder = new FolderBrowserDialog();
         String CaminhoPasta = String.Empty;
-        Thread th;
 
         public async Task<String[]> Abrir()
         {
@@ -87,7 +79,8 @@ namespace LocalizaArquivos
 
                 i++;
                 dgvArquivos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                StatusLabel.Text = "Arquivos Localizados: " + i;
+                StatusLabel.Text = "Arquivos Localizados: ";
+                txtContador.Text = dgvArquivos.Rows.Count.ToString();
             }
 
             foreach (DirectoryInfo dir in sub)
@@ -108,17 +101,18 @@ namespace LocalizaArquivos
                 {
                     if (file.ToString().Contains(txtArquivo.Text))
                     {
-                        dgvArquivos.Rows.Add(aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                        dgvArquivos.Rows.Add(aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length/ Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                     }
                 }
                 else
                 {
-                    dgvArquivos.Rows.Add(aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                    dgvArquivos.Rows.Add(aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length/ Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                 }
 
                 values++;
 
-                StatusLabel.Text = "Arquivos Localizados: " + values;
+                StatusLabel.Text = "Arquivos Localizados: ";
+                txtContador.Text = dgvArquivos.Rows.Count.ToString();
                 dgvArquivos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
 
@@ -132,6 +126,7 @@ namespace LocalizaArquivos
         private async void btnPesquisa_Click(object sender, EventArgs e)
         {
             CaminhoPasta = txtCaminho.Text;
+            dgvArquivos.Rows.Clear();
 
 
             if (!string.IsNullOrEmpty(CaminhoPasta))
@@ -176,7 +171,6 @@ namespace LocalizaArquivos
                 string NomeArquivo = aux.Split('\\')[aux.Split('\\').Length - 3].Trim() + "_" + aux.Split('\\')[aux.Split('\\').Length - 2].Trim() + "_" + aux.Split('\\')[aux.Split('\\').Length - 1].Trim();
                 string cabecalho = string.Empty;
 
-
                 if (b_excel)
                 {
                     string tipoPlan = string.Empty;
@@ -203,11 +197,11 @@ namespace LocalizaArquivos
                     }
                     objExcel.Workbooks.Add();
                     objExcel.ActiveWorkbook.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1) : NomeArquivo) + ".xlsx");
-                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 31) : NomeArquivo.Substring(0,31));
+                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0,30));
                     objExcel.Visible = true;
 
                     int LinhasCabecalhos = 0, coluna = 0;
-                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1) : NomeArquivo)].Activate();
+                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, 30))].Activate();
                     objExcel.ActiveSheet.Cells.Font.Name = "Arial";
                     objExcel.ActiveSheet.Cells.Font.Size = 9;
                     LinhasCabecalhos = 1;
@@ -220,13 +214,14 @@ namespace LocalizaArquivos
                         objExcel.ActiveSheet.Rows(LinhasCabecalhos).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         objExcel.ActiveSheet.Cells(LinhasCabecalhos, ++coluna).Value = dgvArquivos.Columns[i].HeaderText.ToString();
                     }
-                    for (int i = 0; i < dgvArquivos.Rows.Count; i++)
+                    for (int i = 1; i < dgvArquivos.Rows.Count; i++)
                     {
-                        for (int j = 0; j < dgvArquivos.Columns.Count; j++)
+                        for (int j = 1; j <= dgvArquivos.Columns.Count; j++)
                         {
-                            objExcel.ActiveSheet.Cells(i, j).Value = dgvArquivos.Rows[i].Cells[j].Value;
+                            objExcel.ActiveSheet.Cells(i+1, j).Value = dgvArquivos.Rows[i-1].Cells[j-1].Value.ToString();
                         }
                     }
+                    objExcel.ActiveSheet.Columns.AutoFit();
                     objExcel.ActiveWorkbook.Save();
                     objExcel.Application.Quit();
                 }
@@ -264,6 +259,11 @@ namespace LocalizaArquivos
                     sw.Flush();
                     sw.Close();
                 }
+            }
+            else
+            {
+                MessageBox.Show("Favor pesquisar alguma pasta antes", "Erro:", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCaminho.Focus();
             }
         }
     }
