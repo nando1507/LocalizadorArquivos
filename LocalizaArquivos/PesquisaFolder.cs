@@ -69,12 +69,12 @@ namespace LocalizaArquivos
                 {
                     if (file.ToString().Contains(txtArquivo.Text))
                     {
-                        dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                        dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                     }
                 }
                 else
                 {
-                    dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                    dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                 }
 
                 i++;
@@ -214,6 +214,7 @@ namespace LocalizaArquivos
                         objExcel.ActiveSheet.Rows(LinhasCabecalhos).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         objExcel.ActiveSheet.Cells(LinhasCabecalhos, ++coluna).Value = dgvArquivos.Columns[i].HeaderText.ToString();
                     }
+                    objExcel.ActiveSheet.Range["A:Z"].NumberFormat = "@";
                     for (int i = 1; i < dgvArquivos.Rows.Count; i++)
                     {
                         for (int j = 1; j <= dgvArquivos.Columns.Count; j++)
