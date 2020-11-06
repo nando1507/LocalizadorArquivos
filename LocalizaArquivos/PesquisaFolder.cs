@@ -69,12 +69,12 @@ namespace LocalizaArquivos
                 {
                     if (file.ToString().Contains(txtArquivo.Text))
                     {
-                        dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                        dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                     }
                 }
                 else
                 {
-                    dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2))) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
+                    dgvArquivos.Rows.Add(Aux, file.Name, file.LastAccessTime, file.LastWriteTime, Convert.ToString(Math.Round((float)file.Length / Math.Pow(1024.00, (rbKB.Checked && !rbMB.Checked ? 1 : 2)), 2)) + " " + (rbKB.Checked && !rbMB.Checked ? rbKB.Text : rbMB.Text));
                 }
 
                 i++;
@@ -197,11 +197,11 @@ namespace LocalizaArquivos
                     }
                     objExcel.Workbooks.Add();
                     objExcel.ActiveWorkbook.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1) : NomeArquivo) + ".xlsx");
-                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0,30));
+                    objExcel.Worksheets[tipoPlan + "1"].Name = (NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, NomeArquivo.Length));
                     objExcel.Visible = true;
 
                     int LinhasCabecalhos = 0, coluna = 0;
-                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, 30))].Activate();
+                    objExcel.Worksheets[(NomeArquivo.Substring(NomeArquivo.Length-1, 1) == "_" ? NomeArquivo.Substring(0, NomeArquivo.Length - 1).Substring(0, 30) : NomeArquivo.Substring(0, NomeArquivo.Length))].Activate();
                     objExcel.ActiveSheet.Cells.Font.Name = "Arial";
                     objExcel.ActiveSheet.Cells.Font.Size = 9;
                     LinhasCabecalhos = 1;
@@ -214,6 +214,7 @@ namespace LocalizaArquivos
                         objExcel.ActiveSheet.Rows(LinhasCabecalhos).VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                         objExcel.ActiveSheet.Cells(LinhasCabecalhos, ++coluna).Value = dgvArquivos.Columns[i].HeaderText.ToString();
                     }
+                    objExcel.ActiveSheet.Range["A:Z"].NumberFormat = "@";
                     for (int i = 1; i < dgvArquivos.Rows.Count; i++)
                     {
                         for (int j = 1; j <= dgvArquivos.Columns.Count; j++)
